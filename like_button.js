@@ -7,31 +7,28 @@ class LikeButton extends React.Component {
     super(props);
     this.state = { 
       id:1,
-      status: 'Idle'
+      status: false
     };
   }
 
+  get_style()
+  {
+    return {
+      color: this.state.status?'green':'red'
+    }
+  }
+
   render() {
-    let text_area = e(
-      'h1',
-      {key:1},
-      this.state.status
-    )
-    let reserve_button = e(
-      'button',
-      { key:2, onClick: () => this.setState({status: 'Booked'})},
-      'Avail'
-    )
     let release_button = e(
       'button',
-      { key:3, onClick: () => this.setState({status: 'Available'})},
-      'Release'
+      { key:3, style: this.get_style(), onClick: () => this.setState({status: !this.state.status, color: 'green'})},
+      'Book'
     )
     
     return e(
       'div',
       {},
-      [text_area, reserve_button, release_button]
+      [release_button]
     );
   }
 }
