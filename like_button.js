@@ -1,37 +1,34 @@
 'use strict';
-
 const e = React.createElement;
+import {SeatModel} from './test_function.js'
 
-class LikeButton extends React.Component {
+class LayoutDisplay extends React.Component{
   constructor(props) {
     super(props);
     this.state = { 
-      id:1,
-      status: false
+      seats:[{
+        id:1,
+        status: false,
+        displayTest: 'Book Seat1'},
+        {
+          id:1,
+          status: false,
+          displayTest: 'Book Seat2'
+        }]
     };
   }
 
-  get_style()
-  {
-    return {
-      color: this.state.status?'green':'red'
-    }
-  }
-
-  render() {
-    let release_button = e(
-      'button',
-      { key:3, style: this.get_style(), onClick: () => this.setState({status: !this.state.status, color: 'green'})},
-      'Book'
-    )
-    
+  render(){ 
+    const seats = this.state.seats.map( seat => e(
+      SeatModel, {...seat}, null
+    ))
     return e(
       'div',
       {},
-      [release_button]
+      [...seats]
     );
   }
 }
 
 const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(e(LikeButton), domContainer);
+ReactDOM.render(e(LayoutDisplay), domContainer);
